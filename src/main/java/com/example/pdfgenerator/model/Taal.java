@@ -1,11 +1,13 @@
 package com.example.pdfgenerator.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "taal", schema = "public")
+@JsonIgnoreProperties({"persoon"})
 public class Taal {
-    // TODO de tostrings opnieuw maken na complete models
-    // TODO ignore en toostring en user toevoegen met set en get
     // TODO validation
     // Hier enum van kunnen maken?
 
@@ -24,6 +26,27 @@ public class Taal {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "persoon_id")
+    private Persoon persoon;
+
+    public Persoon getPersoon() {
+        return persoon;
+    }
+
+    public void setPersoon(Persoon persoon) {
+        this.persoon = persoon;
+    }
+
+    public Taal(String taal, String spreken, String schrijven, String lezen, Long id, Persoon persoon) {
+        this.taal = taal;
+        Spreken = spreken;
+        this.schrijven = schrijven;
+        this.lezen = lezen;
+        this.id = id;
+        this.persoon = persoon;
+    }
 
     public Taal(String taal, String spreken, String schrijven, String lezen, Long id) {
         this.taal = taal;
@@ -92,6 +115,7 @@ public class Taal {
                 ", schrijven='" + schrijven + '\'' +
                 ", lezen='" + lezen + '\'' +
                 ", id=" + id +
+                ", persoon=" + persoon +
                 '}';
     }
 }

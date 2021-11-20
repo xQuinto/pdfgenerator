@@ -1,11 +1,13 @@
 package com.example.pdfgenerator.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "referentie", schema = "public")
+@JsonIgnoreProperties({"persoon"})
 public class Referentie {
-    // TODO de tostrings opnieuw maken na complete models
-    // TODO ignore en toostring en user
     // if referentie.isEmpty, dan dit ook niet weergeven op pdf.
     // dus eerst die check vooraf doen.
 
@@ -31,6 +33,21 @@ public class Referentie {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "persoon_id")
+    private Persoon persoon;
+
+    public Referentie(String naam, String titel, String bedrijfsnaam, String telefoon, String email, String relatie, Long id, Persoon persoon) {
+        this.naam = naam;
+        this.titel = titel;
+        this.bedrijfsnaam = bedrijfsnaam;
+        this.telefoon = telefoon;
+        this.email = email;
+        this.relatie = relatie;
+        this.id = id;
+        this.persoon = persoon;
+    }
+
     public Referentie(String naam, String titel, String bedrijfsnaam, String telefoon, String email, String relatie, Long id) {
         this.naam = naam;
         this.titel = titel;
@@ -52,6 +69,14 @@ public class Referentie {
 
     public Referentie() {
 
+    }
+
+    public Persoon getPersoon() {
+        return persoon;
+    }
+
+    public void setPersoon(Persoon persoon) {
+        this.persoon = persoon;
     }
 
     public void setId(Long id) {
@@ -120,6 +145,7 @@ public class Referentie {
                 ", email='" + email + '\'' +
                 ", relatie='" + relatie + '\'' +
                 ", id=" + id +
+                ", persoon=" + persoon +
                 '}';
     }
 }

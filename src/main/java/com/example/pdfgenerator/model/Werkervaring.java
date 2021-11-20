@@ -1,11 +1,16 @@
 package com.example.pdfgenerator.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "werkervaring", schema = "public")
+@JsonIgnoreProperties({"persoon"})
 public class Werkervaring extends Ervaring {
-    // TODO de tostrings opnieuw maken na complete models
-    // TODO  ignore en toostring
     // TODO validation
     @Column(nullable = false)
     public String werkgever;
@@ -61,8 +66,6 @@ public class Werkervaring extends Ervaring {
                 '}';
     }
 
-    // many to one relationship with persoon
-    // check ff de ignores etc in "user-project"
 
 
 }

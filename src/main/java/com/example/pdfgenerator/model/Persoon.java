@@ -2,11 +2,12 @@ package com.example.pdfgenerator.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "persoon", schema = "public")
 public class Persoon {
-    // TODO de tostrings opnieuw maken na complete models
-    // TODO ignore en toostring en relationship en user
     // TODO validation
     @Column(nullable = false)
     private String voorletters;
@@ -50,6 +51,24 @@ public class Persoon {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @OneToMany(mappedBy = "persoon", cascade = CascadeType.ALL)
+    private Set<Cursus> cursus = new HashSet<>();
+
+    @OneToMany(mappedBy = "persoon", cascade = CascadeType.ALL)
+    private Set<Opleiding> opleiding = new HashSet<>();
+
+    @OneToMany(mappedBy = "persoon", cascade = CascadeType.ALL)
+    private Set<Referentie> referentie = new HashSet<>();
+
+    @OneToMany(mappedBy = "persoon", cascade = CascadeType.ALL)
+    private Set<Taal> taal = new HashSet<>();
+
+    @OneToMany(mappedBy = "persoon", cascade = CascadeType.ALL)
+    private Set<Vaardigheid> vaardigheid = new HashSet<>();
+
+    @OneToMany(mappedBy = "persoon", cascade = CascadeType.ALL)
+    private Set<Werkervaring> werkervaring = new HashSet<>();
 
     public Persoon(String voorletters, String voornaam, String tussenvoegsel, String achternaam, String woonplaats, LocalDate dob,
                    String email, String telefoonnummer, String linkedInUrl, String nationaliteit, boolean rijbewijs, String hobbys,
@@ -205,11 +224,59 @@ public class Persoon {
         this.interesses = interesses;
     }
 
+    public Set<Cursus> getCursus() {
+        return cursus;
+    }
+
+    public void setCursus(Set<Cursus> cursus) {
+        this.cursus = cursus;
+    }
+
+    public Set<Opleiding> getOpleiding() {
+        return opleiding;
+    }
+
+    public void setOpleiding(Set<Opleiding> opleiding) {
+        this.opleiding = opleiding;
+    }
+
+    public Set<Referentie> getReferentie() {
+        return referentie;
+    }
+
+    public void setReferentie(Set<Referentie> referentie) {
+        this.referentie = referentie;
+    }
+
+    public Set<Taal> getTaal() {
+        return taal;
+    }
+
+    public void setTaal(Set<Taal> taal) {
+        this.taal = taal;
+    }
+
+    public Set<Vaardigheid> getVaardigheid() {
+        return vaardigheid;
+    }
+
+    public void setVaardigheid(Set<Vaardigheid> vaardigheid) {
+        this.vaardigheid = vaardigheid;
+    }
+
+    public Set<Werkervaring> getWerkervaring() {
+        return werkervaring;
+    }
+
+    public void setWerkervaring(Set<Werkervaring> werkervaring) {
+        this.werkervaring = werkervaring;
+    }
+
     @Override
     public String toString() {
         return "Persoon{" +
                 "voorletters='" + voorletters + '\'' +
-                ", Voornaam='" + voornaam + '\'' +
+                ", voornaam='" + voornaam + '\'' +
                 ", tussenvoegsel='" + tussenvoegsel + '\'' +
                 ", achternaam='" + achternaam + '\'' +
                 ", woonplaats='" + woonplaats + '\'' +
@@ -222,6 +289,12 @@ public class Persoon {
                 ", hobbys='" + hobbys + '\'' +
                 ", interesses='" + interesses + '\'' +
                 ", id=" + id +
+                ", cursus=" + cursus +
+                ", opleiding=" + opleiding +
+                ", referentie=" + referentie +
+                ", taal=" + taal +
+                ", vaardigheid=" + vaardigheid +
+                ", werkervaring=" + werkervaring +
                 '}';
     }
 }

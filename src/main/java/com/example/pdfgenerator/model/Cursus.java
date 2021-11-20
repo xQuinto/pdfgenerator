@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ervaring", schema = "public")
+@Table(name = "cursus", schema = "public")
 @JsonIgnoreProperties({"persoon"})
 public class Cursus extends Ervaring{
-    // TODO de tostrings opnieuw maken na complete models
-    // TODO ignore, relatie en lazytype ofzo en persoon
+
+
 
     @Column(nullable = false)
     private boolean certificaat;
@@ -52,9 +52,11 @@ public class Cursus extends Ervaring{
     public String toString() {
         return "Cursus{" +
                 "certificaat=" + certificaat +
+                ", persoon=" + persoon +
                 ", beginJaar='" + beginJaar + '\'' +
                 ", eindJaar='" + eindJaar + '\'' +
                 ", titel='" + titel + '\'' +
                 '}';
     }
+
 }

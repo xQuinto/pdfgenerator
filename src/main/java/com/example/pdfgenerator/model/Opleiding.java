@@ -1,12 +1,15 @@
 package com.example.pdfgenerator.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "opleiding", schema = "public")
+@JsonIgnoreProperties({"persoon"})
 public class Opleiding extends Ervaring{
-    // TODO de tostrings opnieuw maken na complete models
-    // TODO ignore en toostring en user
     // TODO validation
     @Column(nullable = false)
     private String opleiding;
@@ -36,9 +39,18 @@ public class Opleiding extends Ervaring{
         this.diploma = diploma;
     }
 
+    public Opleiding(String opleiding, String school, String niveau, boolean diploma) {
+        this.opleiding = opleiding;
+        this.school = school;
+        this.niveau = niveau;
+        this.diploma = diploma;
+    }
+
     public Opleiding() {
         super();
     }
+
+
 
 
     public String getOpleiding() {
