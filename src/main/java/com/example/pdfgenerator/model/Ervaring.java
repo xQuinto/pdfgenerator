@@ -1,13 +1,14 @@
 package com.example.pdfgenerator.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@JsonIgnoreProperties({"persoon"})
 public class Ervaring {
-    // TODO ignore en toostring en user
     // TODO validation
-    // TODO de tostrings opnieuw maken na complete models
     @Column(nullable = false)
     public String beginJaar;
 
@@ -20,6 +21,10 @@ public class Ervaring {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "persoon_id")
+    private Persoon persoon;
 
     public Ervaring(String beginJaar, String eindJaar, String titel, Long id) {
         this.beginJaar = beginJaar;
@@ -36,6 +41,22 @@ public class Ervaring {
 
     public Ervaring() {
 
+    }
+
+    public Ervaring(String beginJaar, String eindJaar, String titel, Long id, Persoon persoon) {
+        this.beginJaar = beginJaar;
+        this.eindJaar = eindJaar;
+        this.titel = titel;
+        this.id = id;
+        this.persoon = persoon;
+    }
+
+    public Persoon getPersoon() {
+        return persoon;
+    }
+
+    public void setPersoon(Persoon persoon) {
+        this.persoon = persoon;
     }
 
     public void setId(Long id) {
@@ -77,6 +98,7 @@ public class Ervaring {
                 ", eindJaar='" + eindJaar + '\'' +
                 ", titel='" + titel + '\'' +
                 ", id=" + id +
+                ", persoon=" + persoon +
                 '}';
     }
 }
